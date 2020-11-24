@@ -1,6 +1,6 @@
 import {Localit} from "localit/src/localit";
 
-export const CacheRemember = async (key, handler, time) => {
+export const CacheRemember = async (key,  time, handler) => {
 
     let store = new Localit('cache-remember');
     let result = store.get(key)
@@ -24,18 +24,18 @@ export const CacheAutoUpdate = (key, handler) => {
     let result = store.get(key)
     let promise = null
     if (typeof handler === "function") {
-        Promise.resolve(handler()).then((result) => store.set(key, result))
+       promise  = new Promise(async (resolve) => {
+           let result = await Promise.resolve(handler())
+           store.set(key, result)
+           resolve(result)
+       })
     } else {
         promise = new Promise(async (resolve) => {
             let result = await Promise.resolve(handler)
             store.set(key, result)
-            resolve(true)
+            resolve(result)
         })
     }
-    console.log(localStorage)
-    return {
-        result:result,
-        updated:promise
-    };
+    return result?result:promise
 
 }
