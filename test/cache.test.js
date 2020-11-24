@@ -19,6 +19,14 @@ test('Prueba almacenar funcion', async () => {
     },)
     expect(result).toBe("YEEEEE")
 })
+test('Prueba almacenar funcion con argumentos', async () => {
+    let argumento1="JEJEJEJE"
+    let argumento2="JAJAJAJA"
+    let result = await CacheRemember("argumentos", 1000, (arg1, arg2) => {
+        return arg1+ arg2
+    }, ...[argumento1,argumento2])
+    expect(result).toBe("JEJEJEJEJAJAJAJA")
+})
 test('Prueba almacenar promise', async () => {
     let result1 = await CacheRemember("Promise1", 1000, getRandomUser())
     let result2 = await CacheRemember("Promise1", 1000, getRandomUser())
