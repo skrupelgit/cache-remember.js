@@ -4,7 +4,7 @@
   "description": "Two functions inspired by laravel cache::remember managed with localstore",
   "main": "main.js",
   "scripts": {
-    "build": "parcel build src/index.js --out-dir ./ --out-file main.js ",
+    "build": "parcel build src/index.js --out-dir ./ --out-file main.js  --no-source-maps --experimental-scope-hoisting",
     "test": "cross-env NODE_ENV=test  jest"
   },
   "author": "Skrupel",
