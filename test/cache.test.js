@@ -64,7 +64,7 @@ test('Prueba auto update funciones', async () => {
     //El resultado de la primera promise es el resultado de la siguiente llamada a la funcion
     expect(result2).toBe(resolvedResult)
 })
-test('Prueba auto update funciones', async () => {
+test('Prueba auto update promise', async () => {
     let result = CacheAutoUpdate('promise', getRandomUser())
     //La primera llamada devuelve una promise
     expect(typeof result).toBe('object')
