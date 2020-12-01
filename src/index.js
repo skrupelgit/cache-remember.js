@@ -1,6 +1,6 @@
-import {Localit} from "localit/src/localit";
+import {Localit} from "localit";
 
-export const CacheRemember = async (key, time, handler, ...args) => {
+export const CacheRemember = async (key, time, handler) => {
 
     let store = new Localit();
     store.setDomain('cache-remember')
@@ -9,37 +9,34 @@ export const CacheRemember = async (key, time, handler, ...args) => {
         return result;
     }
     if (typeof handler === "function") {
-        if (args)
-            result = await Promise.resolve(handler(...args))
-        else
-            result = await Promise.resolve(handler())
+        result = await handler()
     } else {
-        result = await Promise.resolve(handler)
+        result = await handler
     }
     store.set(key, result, `${time}s`)
 
     return result;
 
 }
-export const CacheAutoUpdate = (key, handler,  ...args) => {
+export const CacheAutoUpdate = (key, handler) => {
 
     let store = new Localit();
+    let promise;
     store.setDomain('cache-autoupdate')
     let result = store.get(key)
-    let promise = null
     if (typeof handler === "function") {
         promise = new Promise(async (resolve) => {
-            let result = await Promise.resolve(handler(...args))
+            let result = await handler()
             store.set(key, result)
             resolve(result)
         })
     } else {
         promise = new Promise(async (resolve) => {
-            let result = await Promise.resolve(handler)
+            let result = await handler
             store.set(key, result)
             resolve(result)
         })
     }
-    return result ? result : promise
+    return result ?? promise
 
 }

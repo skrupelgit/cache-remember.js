@@ -1,4 +1,5 @@
 import {CacheAutoUpdate, CacheRemember} from "../src";
+import {Localit} from "localit/src/localit";
 
 const getRandomUser = () => {
     return new Promise(resolve => {
@@ -19,14 +20,18 @@ test('Prueba almacenar funcion', async () => {
     },)
     expect(result).toBe("YEEEEE")
 })
-test('Prueba almacenar funcion con argumentos', async () => {
-    let argumento1="JEJEJEJE"
-    let argumento2="JAJAJAJA"
-    let result = await CacheRemember("argumentos", 1000, (arg1, arg2) => {
-        return arg1+ arg2
-    }, ...[argumento1,argumento2])
-    expect(result).toBe("JEJEJEJEJAJAJAJA")
+
+test('Prueba de caducidad de la cache', async ()=>{
+    let localit= new Localit({domain :'cache-remember', type : 'localStorage'})
+    let temp= await CacheRemember("will-die-soon", 1,"Oh no")
+    expect(temp).toBe("Oh no")
+    expect(localit.get('will-die-soon')).toBe("Oh no")
+    await sleep(1000);
+    console.log(localit.getFullKey('will-die-soon'))
+    expect(localit.get('will-die-soon')).toBe(null)
 })
+
+
 test('Prueba almacenar promise', async () => {
     let result1 = await CacheRemember("Promise1", 1000, getRandomUser())
     let result2 = await CacheRemember("Promise1", 1000, getRandomUser())

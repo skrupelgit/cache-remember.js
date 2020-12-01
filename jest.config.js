@@ -13,7 +13,7 @@ module.exports = {
         "node_modules",
     ],
     "transformIgnorePatterns": [
-        "node_modules/(?!(react-native|localit|react-native-button)/)"
+        "node_modules/(?!(localit)/)"
     ]
 
 };
