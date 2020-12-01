@@ -1,6 +1,6 @@
 import {Localit} from "localit";
 
-export const CacheRemember = async (key, time, handler) => {
+ const CacheRemember = async (key, time, handler) => {
 
     let store = new Localit();
     store.setDomain('cache-remember')
@@ -18,7 +18,7 @@ export const CacheRemember = async (key, time, handler) => {
     return result;
 
 }
-export const CacheAutoUpdate = (key, handler) => {
+ const CacheAutoUpdate = (key, handler) => {
 
     let store = new Localit();
     let promise;
@@ -40,3 +40,4 @@ export const CacheAutoUpdate = (key, handler) => {
     return result ?? promise
 
 }
+export {CacheRemember, CacheAutoUpdate}

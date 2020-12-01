@@ -1,5 +1,5 @@
+import {Localit} from "localit";
 import {CacheAutoUpdate, CacheRemember} from "../src";
-import {Localit} from "localit/src/localit";
 
 const getRandomUser = () => {
     return new Promise(resolve => {
