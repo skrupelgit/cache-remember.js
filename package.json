@@ -1,6 +1,6 @@
 {
   "name": "remember-cache",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Two functions inspired by laravel cache::remember managed with localstore",
   "main": "main.js",
   "scripts": {
