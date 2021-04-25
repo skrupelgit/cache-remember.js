@@ -1,15 +1,15 @@
 # remember-cache
 
-remember-cache is a simple package that provides two useful functions for managin cache in your javascript project.
+remember-cache is a simple package that provides few useful functions for managin cache in your javascript project.
 
-These functions are `CacheRemember` and `CacheAutoupdate`
+These functions are `remember`, `autoUpdate` and `autoClear` 
 
 ```
 npm i remember-cache
 ```
 
 ## CacheRemember
- `CacheRemember` is a function that recieves three parameters, `key`, `time` , `handler` and returns a `value`. The functionality is very easy, it executes the handler and stores the result in `localstorage` in base the `key` that we provide. This key will expire when the `time` in seconds finish. If we execute from a second time this function with the same key and the time has not expired, it not will trigger the handler so we will save execution time.
+ `remember` is a function that recieves three parameters, `key`, `time` , `handler` and returns a `value`. The functionality is very easy, it executes the handler and stores the result in `localstorage` in base the `key` that we provide. This key will expire when the `time` in seconds finish. If we execute from a second time this function with the same key and the time has not expired, it not will trigger the handler so we will save execution time.
  
   This function tries to emulate the functionality of `Cache::remember()` function from Laravel.
   
@@ -17,12 +17,14 @@ npm i remember-cache
   
   
   ```js
+  import cache from "remember-cache";
+
   function async apiCall(params){
       //Executes an stressfull api call
       return await myAjaxCaller.get('/idontknow/someurl', params)
   }
   
-  let result = await CacheRemember("store-hi-api-call", 100,()=>{
+  let result = await cache.remember("store-hi-api-call", 100,()=>{
       return apiCall("hi");
   }))
   alert(result);
@@ -40,10 +42,11 @@ The best way to see how it works is with this example
 ### Example
 
   ```js
+  import cache from "remember-cache";
   let myArray = ['dubai','bananas','hi','spontiak'];
   let results = [];
   for(let value in myArray){
-      let results.push(CacheAutoupdate('example-key', value))
+      let results.push(cache.autoUpdate('example-key', value))
   }
 
 console.log(results)

@@ -1,10 +1,10 @@
 {
   "name": "remember-cache",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Two functions inspired by laravel cache::remember managed with localstore",
-  "main": "main.js",
   "scripts": {
-    "build": "parcel build src/index.js --out-dir ./ --out-file main.js  --no-source-maps --experimental-scope-hoisting",
+    "build": "tsc  && npm run minify",
+    "minify": "jsmin -o dist/main.js dist/main.js",
     "test": "cross-env NODE_ENV=test  jest"
   },
   "author": "Skrupel",
@@ -16,13 +16,14 @@
     "@babel/core": "^7.12.9",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
-    "axios": "^0.21.0",
     "babel-jest": "^26.6.3",
     "cross-env": "^7.0.2",
     "jest": "^26.6.3",
     "jest-fetch-mock": "^3.0.3",
-    "parcel-bundler": "^1.12.4"
+    "jsmin": "^1.0.1"
   },
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
   "directories": {
     "test": "test"
   },
